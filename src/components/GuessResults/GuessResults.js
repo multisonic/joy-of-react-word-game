@@ -5,7 +5,7 @@ import { range } from "../../utils";
 
 import Guess from "../Guess";
 
-function GuessResults({ guesses, answer }) {
+function GuessResults({ guesses, answer, setGameResult }) {
   return (
     <div className="guess-results">
       {range(NUM_OF_GUESSES_ALLOWED).map((num) => (

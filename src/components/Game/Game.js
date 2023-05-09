@@ -1,6 +1,7 @@
 import React from "react";
 import GuessInput from "../GuessInput";
 import GuessResults from "../GuessResults";
+import Banner from "../Banner";
 import { sample } from "../../utils";
 import { WORDS } from "../../data";
 
@@ -11,15 +12,41 @@ console.info({ answer });
 
 function Game() {
   const [guesses, setGuesses] = React.useState([]);
+  const [gameResult, setGameResult] = React.useState("");
 
   function handleSubmitGuess(tentativeGuess) {
-    setGuesses([...guesses, tentativeGuess]);
+    const nextGuesses = [...guesses, tentativeGuess];
+    setGuesses(nextGuesses);
+    if (tentativeGuess === answer) {
+      setGameResult("won");
+      return;
+    }
+    if (nextGuesses.length === 6) {
+      setGameResult("lost");
+    }
   }
-
+  // if (!gameResult && (guesses.length = 6)) {
+  //   setGameResult("lost");
+  // }
+  console.log({ gameResult });
   return (
     <>
-      <GuessResults guesses={guesses} answer={answer} />
-      <GuessInput handleSubmitGuess={handleSubmitGuess} />
+      <GuessResults
+        guesses={guesses}
+        answer={answer}
+        setGameResult={setGameResult}
+      />
+      <GuessInput
+        disableInput={gameResult ? true : false}
+        handleSubmitGuess={handleSubmitGuess}
+      />
+      {gameResult && (
+        <Banner
+          guessCount={guesses.length}
+          gameResult={gameResult}
+          answer={answer}
+        />
+      )}
     </>
   );
 }
