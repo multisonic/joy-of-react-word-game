@@ -1,9 +1,10 @@
 import React from "react";
+import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
+import { WORDS } from "../../data";
+import { sample } from "../../utils";
+import Banner from "../Banner";
 import GuessInput from "../GuessInput";
 import GuessResults from "../GuessResults";
-import Banner from "../Banner";
-import { sample } from "../../utils";
-import { WORDS } from "../../data";
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -21,14 +22,11 @@ function Game() {
       setGameResult("won");
       return;
     }
-    if (nextGuesses.length === 6) {
+    if (nextGuesses.length >= NUM_OF_GUESSES_ALLOWED) {
       setGameResult("lost");
     }
   }
-  // if (!gameResult && (guesses.length = 6)) {
-  //   setGameResult("lost");
-  // }
-  console.log({ gameResult });
+
   return (
     <>
       <GuessResults guesses={guesses} answer={answer} />
