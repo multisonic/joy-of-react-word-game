@@ -31,11 +31,7 @@ function Game() {
   console.log({ gameResult });
   return (
     <>
-      <GuessResults
-        guesses={guesses}
-        answer={answer}
-        setGameResult={setGameResult}
-      />
+      <GuessResults guesses={guesses} answer={answer} />
       <GuessInput
         disableInput={gameResult ? true : false}
         handleSubmitGuess={handleSubmitGuess}
